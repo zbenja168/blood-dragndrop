@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood &amp; Lymph &ndash; Drag &amp; Drop Games</title>
+<style>
+  :root{--bg:#0a0805;--surface:#14110b;--surface2:#1d1812;--text:#f1f5f9;--muted:#94a3b8;--border:rgba(255,255,255,0.07);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;}
+
+  header{background:linear-gradient(160deg,#1a1305 0%,#2a1f08 50%,#0a0805 100%);border-bottom:1px solid var(--border);padding:44px 24px 36px;text-align:center;position:relative;overflow:hidden;}
+  header::after{content:'\1F9E0';position:absolute;font-size:360px;opacity:.025;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+  header h1{font-size:2.4rem;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#f8fafc 30%,#dc2626);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;position:relative;}
+  header p{color:var(--muted);font-size:.9rem;position:relative;}
+  .pills{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap;position:relative;}
+  .pill{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:.78rem;color:var(--muted);}
+  .pill b{color:#dc2626;}
+
+  .search-wrap{max-width:460px;margin:22px auto 0;position:relative;}
+  .search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:10px 44px 10px 18px;color:var(--text);font-size:.85rem;outline:none;transition:.2s;}
+  .search-wrap input:focus{border-color:#dc2626;box-shadow:0 0 0 3px rgba(220, 38, 38, .18);}
+  .search-wrap input::placeholder{color:var(--muted);}
+  .search-ico{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none;}
+
+  main{max-width:1380px;margin:0 auto;padding:32px 16px 56px;}
+  .no-results{text-align:center;color:var(--muted);padding:60px 20px;font-size:.9rem;display:none;}
+
+  .section{margin-bottom:32px;}
+  .section-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+  .section-icon{font-size:1.2rem;line-height:1;}
+  .section-title{font-size:.95rem;font-weight:700;color:var(--text);}
+  .section-badge{margin-left:auto;background:var(--surface2);border-radius:10px;padding:2px 8px;font-size:.68rem;color:var(--muted);}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:7px;}
+  a.card{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 12px;text-decoration:none;color:var(--text);display:flex;align-items:flex-start;gap:9px;transition:.15s;}
+  a.card:hover{border-color:var(--c,#dc2626);background:var(--surface2);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.5);}
+  .num{flex-shrink:0;background:var(--c,#dc2626);color:#fff;border-radius:5px;padding:2px 5px;font-size:.6rem;font-weight:800;margin-top:1px;opacity:.9;letter-spacing:.3px;}
+  .ctitle{font-size:.75rem;line-height:1.45;color:var(--text);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Blood &amp; Lymph</h1>
+  <p>Drag &amp; Drop Study Games &nbsp;&middot;&nbsp; Biochemistry &amp; Metabolism</p>
+  <div class="pills">
+    <span class="pill"><b>235</b> games</span>
+    <span class="pill"><b>60</b> source bricks</span>
+    <span class="pill"><b>60</b> sections</span>
+  </div>
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Search by topic or number\u2026" autocomplete="off">
+    <span class="search-ico">&#x2315;</span>
+  </div>
+</header>
+
+<main>
+<div class="no-results" id="noResults">No games match your search.</div>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩸</span>
+    <span class="section-title">Hematopoiesis</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_01_hematopoiesis_sites.html" style="--c:#f59e0b"><span class="num">01</span><span class="ctitle">Sites of Hematopoiesis Across Life</span></a>
+    <a class="card" href="blood_02_growth_factors.html" style="--c:#f59e0b"><span class="num">02</span><span class="ctitle">Hematopoietic Cytokines and Colony-Stimulating Factors</span></a>
+    <a class="card" href="blood_03_erythrocyte_stages.html" style="--c:#f59e0b"><span class="num">03</span><span class="ctitle">Stages of Erythrocyte Maturation</span></a>
+    <a class="card" href="blood_04_platelet_production.html" style="--c:#f59e0b"><span class="num">04</span><span class="ctitle">Platelet Production (Thrombopoiesis)</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧬</span>
+    <span class="section-title">RBC Metabolism</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_05_rbc_enzymes.html" style="--c:#10b981"><span class="num">05</span><span class="ctitle">Red Blood Cell Enzymes</span></a>
+    <a class="card" href="blood_06_hb_affinity_modulators.html" style="--c:#10b981"><span class="num">06</span><span class="ctitle">Hemoglobin Oxygen-Affinity Modulators</span></a>
+    <a class="card" href="blood_07_enzyme_disorders.html" style="--c:#10b981"><span class="num">07</span><span class="ctitle">Distinguishing RBC Enzyme &amp; Hemoglobin Disorders</span></a>
+    <a class="card" href="blood_08_methemoglobinemia_agents.html" style="--c:#10b981"><span class="num">08</span><span class="ctitle">Methemoglobinemia: Agents &amp; Interventions</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🔬</span>
+    <span class="section-title">Red Blood Cell Laboratory Tests</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_09_rbc_indices.html" style="--c:#8b5cf6"><span class="num">09</span><span class="ctitle">RBC Indices on the CBC</span></a>
+    <a class="card" href="blood_10_abnormal_rbc_shapes.html" style="--c:#8b5cf6"><span class="num">10</span><span class="ctitle">Abnormal RBC Shapes</span></a>
+    <a class="card" href="blood_11_rbc_inclusions.html" style="--c:#8b5cf6"><span class="num">11</span><span class="ctitle">RBC Inclusions</span></a>
+    <a class="card" href="blood_12_hgb_electrophoresis_patterns.html" style="--c:#8b5cf6"><span class="num">12</span><span class="ctitle">Hemoglobin Electrophoresis Patterns</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧪</span>
+    <span class="section-title">History-Taking Approach to Anemia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_13_six_history_questions.html" style="--c:#06b6d4"><span class="num">13</span><span class="ctitle">The Six Key History Questions in Anemia</span></a>
+    <a class="card" href="blood_14_rbc_indices.html" style="--c:#06b6d4"><span class="num">14</span><span class="ctitle">Reading the CBC: Red Blood Cell Indices</span></a>
+    <a class="card" href="blood_15_blood_loss_sources.html" style="--c:#06b6d4"><span class="num">15</span><span class="ctitle">Sources of Blood Loss in Anemia</span></a>
+    <a class="card" href="blood_16_drugs_toxins_anemia.html" style="--c:#06b6d4"><span class="num">16</span><span class="ctitle">Drugs and Toxins That Cause Anemia</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">💊</span>
+    <span class="section-title">Iron-Deficiency Anemia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_17_iron_handling_molecules.html" style="--c:#ec4899"><span class="num">17</span><span class="ctitle">Iron-Handling Molecules</span></a>
+    <a class="card" href="blood_18_causes_of_ida.html" style="--c:#ec4899"><span class="num">18</span><span class="ctitle">Causes of Iron-Deficiency Anemia</span></a>
+    <a class="card" href="blood_19_lab_findings_ida.html" style="--c:#ec4899"><span class="num">19</span><span class="ctitle">Laboratory Findings in Iron-Deficiency Anemia</span></a>
+    <a class="card" href="blood_20_clinical_signs_ida.html" style="--c:#ec4899"><span class="num">20</span><span class="ctitle">Clinical Signs of Iron Deficiency</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩺</span>
+    <span class="section-title">Thalassemias</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_21_alpha_thalassemia_genotypes.html" style="--c:#84cc16"><span class="num">21</span><span class="ctitle">Alpha-Thalassemia by Deleted Genes</span></a>
+    <a class="card" href="blood_22_beta_thalassemia_spectrum.html" style="--c:#84cc16"><span class="num">22</span><span class="ctitle">Beta-Thalassemia Spectrum</span></a>
+    <a class="card" href="blood_23_hemoglobin_types.html" style="--c:#84cc16"><span class="num">23</span><span class="ctitle">Hemoglobin Species in Thalassemia</span></a>
+    <a class="card" href="blood_24_diagnosis_and_management.html" style="--c:#84cc16"><span class="num">24</span><span class="ctitle">Workup and Management of Thalassemia</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">⚗️</span>
+    <span class="section-title">Anemia of Chronic Disease/Inflammation</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_25_acd_iron_studies.html" style="--c:#f97316"><span class="num">25</span><span class="ctitle">Iron Studies in Anemia of Chronic Disease</span></a>
+    <a class="card" href="blood_26_acd_hepcidin_pathway.html" style="--c:#f97316"><span class="num">26</span><span class="ctitle">Hepcidin and Iron Sequestration</span></a>
+    <a class="card" href="blood_27_acd_underlying_causes.html" style="--c:#f97316"><span class="num">27</span><span class="ctitle">Underlying Causes of ACD</span></a>
+    <a class="card" href="blood_28_acd_management.html" style="--c:#f97316"><span class="num">28</span><span class="ctitle">Managing Anemia of Chronic Disease</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🫀</span>
+    <span class="section-title">Sideroblastic Anemia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_29_causes_of_sideroblastic_anemia.html" style="--c:#3b82f6"><span class="num">29</span><span class="ctitle">Causes of Sideroblastic Anemia</span></a>
+    <a class="card" href="blood_30_morphology_and_lab_findings.html" style="--c:#3b82f6"><span class="num">30</span><span class="ctitle">Morphology and Laboratory Findings</span></a>
+    <a class="card" href="blood_31_presentation_and_management.html" style="--c:#3b82f6"><span class="num">31</span><span class="ctitle">Presentation and Management by Scenario</span></a>
+    <a class="card" href="blood_32_iron_overload_organ_effects.html" style="--c:#3b82f6"><span class="num">32</span><span class="ctitle">Iron Overload: Organ Effects</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩸</span>
+    <span class="section-title">Red Blood Cell Laboratory Tests</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_33_rbc_indices.html" style="--c:#f59e0b"><span class="num">33</span><span class="ctitle">RBC Indices on the CBC</span></a>
+    <a class="card" href="blood_34_rbc_shapes.html" style="--c:#f59e0b"><span class="num">34</span><span class="ctitle">Abnormal RBC Shapes on the Smear</span></a>
+    <a class="card" href="blood_35_rbc_inclusions.html" style="--c:#f59e0b"><span class="num">35</span><span class="ctitle">Red Cell Inclusions</span></a>
+    <a class="card" href="blood_36_ancillary_rbc_tests.html" style="--c:#f59e0b"><span class="num">36</span><span class="ctitle">Specialized Red Cell Tests</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧬</span>
+    <span class="section-title">Aplastic Anemia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_37_myeloid_lineage.html" style="--c:#10b981"><span class="num">37</span><span class="ctitle">Bone Marrow Lineages in Aplastic Anemia</span></a>
+    <a class="card" href="blood_38_etiology.html" style="--c:#10b981"><span class="num">38</span><span class="ctitle">Causes of Aplastic Anemia</span></a>
+    <a class="card" href="blood_39_marrow_failure_ddx.html" style="--c:#10b981"><span class="num">39</span><span class="ctitle">Distinguishing Bone Marrow Failure Syndromes</span></a>
+    <a class="card" href="blood_40_management.html" style="--c:#10b981"><span class="num">40</span><span class="ctitle">Managing Aplastic Anemia</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🔬</span>
+    <span class="section-title">Hereditary Spherocytosis</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_41_hs_pathophysiology.html" style="--c:#8b5cf6"><span class="num">41</span><span class="ctitle">How Spherocytes Form and Are Destroyed</span></a>
+    <a class="card" href="blood_42_hs_diagnostics.html" style="--c:#8b5cf6"><span class="num">42</span><span class="ctitle">Diagnostic Testing in Hereditary Spherocytosis</span></a>
+    <a class="card" href="blood_43_hs_management.html" style="--c:#8b5cf6"><span class="num">43</span><span class="ctitle">Managing Hereditary Spherocytosis by Scenario</span></a>
+    <a class="card" href="blood_44_hs_differential.html" style="--c:#8b5cf6"><span class="num">44</span><span class="ctitle">Hemolytic Anemias and Their Mimics</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧪</span>
+    <span class="section-title">Sickle Cell Disease</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_45_hemoglobin_variants.html" style="--c:#06b6d4"><span class="num">45</span><span class="ctitle">Hemoglobin Variants</span></a>
+    <a class="card" href="blood_46_vasoocclusive_complications.html" style="--c:#06b6d4"><span class="num">46</span><span class="ctitle">Vaso-Occlusive Complications</span></a>
+    <a class="card" href="blood_47_diagnostic_workup.html" style="--c:#06b6d4"><span class="num">47</span><span class="ctitle">Diagnostic Workup</span></a>
+    <a class="card" href="blood_48_management_strategies.html" style="--c:#06b6d4"><span class="num">48</span><span class="ctitle">Management Strategies</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">💊</span>
+    <span class="section-title">Glucose-6-Phosphate Dehydrogenase and Pyruvate Kinase Deficiencies</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_49_antioxidant_pathway.html" style="--c:#ec4899"><span class="num">49</span><span class="ctitle">The G6PD Antioxidant Pathway</span></a>
+    <a class="card" href="blood_50_rbc_morphology.html" style="--c:#ec4899"><span class="num">50</span><span class="ctitle">Red Cell Morphology in Enzyme Deficiencies</span></a>
+    <a class="card" href="blood_51_triggers_management.html" style="--c:#ec4899"><span class="num">51</span><span class="ctitle">Triggers and Management of G6PD Deficiency</span></a>
+    <a class="card" href="blood_52_g6pd_vs_pk.html" style="--c:#ec4899"><span class="num">52</span><span class="ctitle">G6PD versus Pyruvate Kinase Deficiency</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩺</span>
+    <span class="section-title">Autoimmune Hemolytic Anemias</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_53_aha_subtypes.html" style="--c:#84cc16"><span class="num">53</span><span class="ctitle">Subtypes of Immune Hemolysis</span></a>
+    <a class="card" href="blood_54_aha_labs.html" style="--c:#84cc16"><span class="num">54</span><span class="ctitle">Working Up Hemolysis</span></a>
+    <a class="card" href="blood_55_aha_treatments.html" style="--c:#84cc16"><span class="num">55</span><span class="ctitle">Treating Autoimmune Hemolysis</span></a>
+    <a class="card" href="blood_56_aha_etiologies.html" style="--c:#84cc16"><span class="num">56</span><span class="ctitle">Causes and Associations of AHA</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">⚗️</span>
+    <span class="section-title">Megaloblastic Anemia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_57_b12_deficiency_causes.html" style="--c:#f97316"><span class="num">57</span><span class="ctitle">Causes of Vitamin B12 Deficiency</span></a>
+    <a class="card" href="blood_58_folate_deficiency_causes.html" style="--c:#f97316"><span class="num">58</span><span class="ctitle">Causes of Folate Deficiency</span></a>
+    <a class="card" href="blood_59_biochemistry_dna_synthesis.html" style="--c:#f97316"><span class="num">59</span><span class="ctitle">Biochemistry of B12 and Folate</span></a>
+    <a class="card" href="blood_60_b12_vs_folate.html" style="--c:#f97316"><span class="num">60</span><span class="ctitle">B12 vs Folate Deficiency</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🫀</span>
+    <span class="section-title">Coagulation Assays</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_61_coag_tests.html" style="--c:#3b82f6"><span class="num">61</span><span class="ctitle">The Common Coagulation Tests</span></a>
+    <a class="card" href="blood_62_prolonged_ptt.html" style="--c:#3b82f6"><span class="num">62</span><span class="ctitle">Working Up a Prolonged PTT</span></a>
+    <a class="card" href="blood_63_fibrinolysis.html" style="--c:#3b82f6"><span class="num">63</span><span class="ctitle">Fibrinolysis and Thrombosis Markers</span></a>
+    <a class="card" href="blood_64_assay_patterns.html" style="--c:#3b82f6"><span class="num">64</span><span class="ctitle">Assay Patterns in Disease</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩸</span>
+    <span class="section-title">Hemostasis</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_65_primary_hemostasis_steps.html" style="--c:#f59e0b"><span class="num">65</span><span class="ctitle">Steps of Primary Hemostasis</span></a>
+    <a class="card" href="blood_66_coagulation_pathways.html" style="--c:#f59e0b"><span class="num">66</span><span class="ctitle">Coagulation Cascade Pathways</span></a>
+    <a class="card" href="blood_67_clotting_regulators.html" style="--c:#f59e0b"><span class="num">67</span><span class="ctitle">Natural Anticoagulants and Clot Regulators</span></a>
+    <a class="card" href="blood_68_bleeding_disorders.html" style="--c:#f59e0b"><span class="num">68</span><span class="ctitle">Bleeding Disorders</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧬</span>
+    <span class="section-title">Transfusion Medicine</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_69_blood_types_antigens_antibodies.html" style="--c:#10b981"><span class="num">69</span><span class="ctitle">Blood Types: Antigens, Antibodies, and Compatibility</span></a>
+    <a class="card" href="blood_70_blood_products.html" style="--c:#10b981"><span class="num">70</span><span class="ctitle">Blood Products and Their Indications</span></a>
+    <a class="card" href="blood_71_transfusion_reactions.html" style="--c:#10b981"><span class="num">71</span><span class="ctitle">Transfusion Reactions</span></a>
+    <a class="card" href="blood_72_pretransfusion_testing.html" style="--c:#10b981"><span class="num">72</span><span class="ctitle">Pre-Transfusion Testing</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🔬</span>
+    <span class="section-title">Hemophilia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_73_hemophilia_types.html" style="--c:#8b5cf6"><span class="num">73</span><span class="ctitle">Types of Hemophilia and Mimics</span></a>
+    <a class="card" href="blood_74_hemophilia_labs.html" style="--c:#8b5cf6"><span class="num">74</span><span class="ctitle">Diagnosing Hemophilia</span></a>
+    <a class="card" href="blood_75_hemophilia_treatments.html" style="--c:#8b5cf6"><span class="num">75</span><span class="ctitle">Treating Hemophilia</span></a>
+    <a class="card" href="blood_76_hemophilia_bleeding.html" style="--c:#8b5cf6"><span class="num">76</span><span class="ctitle">Where Hemophilia Bleeds</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧪</span>
+    <span class="section-title">von Willebrand Disease</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_77_vwd_types.html" style="--c:#06b6d4"><span class="num">77</span><span class="ctitle">The Three Types of von Willebrand Disease</span></a>
+    <a class="card" href="blood_78_vwd_lab_tests.html" style="--c:#06b6d4"><span class="num">78</span><span class="ctitle">Diagnostic Tests for von Willebrand Disease</span></a>
+    <a class="card" href="blood_79_vwd_treatments.html" style="--c:#06b6d4"><span class="num">79</span><span class="ctitle">Managing Bleeding in von Willebrand Disease</span></a>
+    <a class="card" href="blood_80_vwd_differential.html" style="--c:#06b6d4"><span class="num">80</span><span class="ctitle">vWD and Its Look-Alike Bleeding Disorders</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">💊</span>
+    <span class="section-title">Disseminated Intravascular Coagulation</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_81_dic_triggers.html" style="--c:#ec4899"><span class="num">81</span><span class="ctitle">What Triggers DIC?</span></a>
+    <a class="card" href="blood_82_dic_labs.html" style="--c:#ec4899"><span class="num">82</span><span class="ctitle">DIC Laboratory Workup</span></a>
+    <a class="card" href="blood_83_dic_clinical.html" style="--c:#ec4899"><span class="num">83</span><span class="ctitle">Clinical Manifestations of DIC</span></a>
+    <a class="card" href="blood_84_dic_treatment.html" style="--c:#ec4899"><span class="num">84</span><span class="ctitle">Managing DIC</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩺</span>
+    <span class="section-title">Antiphospholipid Antibody Syndrome</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_85_clinical_manifestations.html" style="--c:#84cc16"><span class="num">85</span><span class="ctitle">Clinical Manifestations of APS</span></a>
+    <a class="card" href="blood_86_laboratory_findings.html" style="--c:#84cc16"><span class="num">86</span><span class="ctitle">Laboratory Findings in APS</span></a>
+    <a class="card" href="blood_87_pathophysiology_causes.html" style="--c:#84cc16"><span class="num">87</span><span class="ctitle">Pathophysiology and Causes of APS</span></a>
+    <a class="card" href="blood_88_diagnosis_treatment.html" style="--c:#84cc16"><span class="num">88</span><span class="ctitle">Diagnosis and Treatment of APS</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">⚗️</span>
+    <span class="section-title">Genetic Thrombotic Disorders</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_89_four_thrombophilias.html" style="--c:#f97316"><span class="num">89</span><span class="ctitle">The Four Genetic Thrombophilias</span></a>
+    <a class="card" href="blood_90_natural_anticoagulants.html" style="--c:#f97316"><span class="num">90</span><span class="ctitle">Anticoagulants and Their Targets</span></a>
+    <a class="card" href="blood_91_diagnostic_workup.html" style="--c:#f97316"><span class="num">91</span><span class="ctitle">Diagnosing Genetic Thrombophilia</span></a>
+    <a class="card" href="blood_92_presentations_complications.html" style="--c:#f97316"><span class="num">92</span><span class="ctitle">Presentations and Complications</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🫀</span>
+    <span class="section-title">Thrombotic Disorders: Foundations and Frameworks</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_93_disorder_types.html" style="--c:#3b82f6"><span class="num">93</span><span class="ctitle">Types of Thrombotic Disorders</span></a>
+    <a class="card" href="blood_94_anticoagulant_classes.html" style="--c:#3b82f6"><span class="num">94</span><span class="ctitle">Anticoagulant Drug Classes</span></a>
+    <a class="card" href="blood_95_warfarin_deep_dive.html" style="--c:#3b82f6"><span class="num">95</span><span class="ctitle">Warfarin: Effects, Interactions, and Cautions</span></a>
+    <a class="card" href="blood_96_clinical_clues.html" style="--c:#3b82f6"><span class="num">96</span><span class="ctitle">Key Clinical Concepts</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩸</span>
+    <span class="section-title">Hereditary Platelet Disorders</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_97_four_disorders.html" style="--c:#f59e0b"><span class="num">97</span><span class="ctitle">The Four Hereditary Platelet Disorders</span></a>
+    <a class="card" href="blood_98_normal_plug.html" style="--c:#f59e0b"><span class="num">98</span><span class="ctitle">Building a Normal Platelet Plug</span></a>
+    <a class="card" href="blood_99_diagnostic_workup.html" style="--c:#f59e0b"><span class="num">99</span><span class="ctitle">Diagnostic Workup of Platelet Disorders</span></a>
+    <a class="card" href="blood_100_treatments.html" style="--c:#f59e0b"><span class="num">100</span><span class="ctitle">Targeted Treatments</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧬</span>
+    <span class="section-title">Thrombocytopenia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_101_severity_presentation.html" style="--c:#10b981"><span class="num">101</span><span class="ctitle">Platelet Count and Clinical Severity</span></a>
+    <a class="card" href="blood_102_mechanisms.html" style="--c:#10b981"><span class="num">102</span><span class="ctitle">How Thrombocytopenia Develops</span></a>
+    <a class="card" href="blood_103_increased_destruction.html" style="--c:#10b981"><span class="num">103</span><span class="ctitle">Causes of Increased Platelet Destruction</span></a>
+    <a class="card" href="blood_104_workup_management.html" style="--c:#10b981"><span class="num">104</span><span class="ctitle">Diagnostic Workup and Management</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🔬</span>
+    <span class="section-title">Immune Thrombocytopenia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_105_clinical_presentation.html" style="--c:#8b5cf6"><span class="num">105</span><span class="ctitle">Bleeding Manifestations of ITP</span></a>
+    <a class="card" href="blood_106_pathophysiology.html" style="--c:#8b5cf6"><span class="num">106</span><span class="ctitle">Pathophysiology of ITP</span></a>
+    <a class="card" href="blood_107_causes_associations.html" style="--c:#8b5cf6"><span class="num">107</span><span class="ctitle">Causes and Secondary Associations of ITP</span></a>
+    <a class="card" href="blood_108_treatment.html" style="--c:#8b5cf6"><span class="num">108</span><span class="ctitle">Treatment of ITP</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧪</span>
+    <span class="section-title">Platelet Assays</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_109_platelet_count_thresholds.html" style="--c:#06b6d4"><span class="num">109</span><span class="ctitle">Platelet Count Thresholds</span></a>
+    <a class="card" href="blood_110_platelet_assays_overview.html" style="--c:#06b6d4"><span class="num">110</span><span class="ctitle">The Four Levels of Platelet Testing</span></a>
+    <a class="card" href="blood_111_aggregation_response_disorders.html" style="--c:#06b6d4"><span class="num">111</span><span class="ctitle">Ristocetin and Bleeding Disorders</span></a>
+    <a class="card" href="blood_112_aggregating_agents_specialized.html" style="--c:#06b6d4"><span class="num">112</span><span class="ctitle">Agents and Specialized Tests</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">💊</span>
+    <span class="section-title">Thrombotic Microangiopathies</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_113_types_and_causes.html" style="--c:#ec4899"><span class="num">113</span><span class="ctitle">Types and Causes of Thrombotic Microangiopathy</span></a>
+    <a class="card" href="blood_114_ttp_pathophysiology.html" style="--c:#ec4899"><span class="num">114</span><span class="ctitle">Molecular Players in TTP Pathophysiology</span></a>
+    <a class="card" href="blood_115_smear_and_labs.html" style="--c:#ec4899"><span class="num">115</span><span class="ctitle">Peripheral Smear and Laboratory Findings</span></a>
+    <a class="card" href="blood_116_diagnosis_and_management.html" style="--c:#ec4899"><span class="num">116</span><span class="ctitle">Diagnosis and Management of Primary TMs</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩺</span>
+    <span class="section-title">Hematopoietic Neoplasms: Foundations and Frameworks</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_117_myeloid_neoplasms.html" style="--c:#84cc16"><span class="num">117</span><span class="ctitle">Types of Myeloid Neoplasms</span></a>
+    <a class="card" href="blood_118_lymphoid_neoplasms.html" style="--c:#84cc16"><span class="num">118</span><span class="ctitle">Types of Lymphoid Neoplasms</span></a>
+    <a class="card" href="blood_119_diagnostic_methods.html" style="--c:#84cc16"><span class="num">119</span><span class="ctitle">Diagnostic Methods in Hematopathology</span></a>
+    <a class="card" href="blood_120_molecular_cytogenetic_markers.html" style="--c:#84cc16"><span class="num">120</span><span class="ctitle">Molecular and Cytogenetic Markers</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">⚗️</span>
+    <span class="section-title">Principles of Chemotherapy</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_121_chemo_modalities.html" style="--c:#f97316"><span class="num">121</span><span class="ctitle">Chemotherapy Modalities</span></a>
+    <a class="card" href="blood_122_chemo_timing.html" style="--c:#f97316"><span class="num">122</span><span class="ctitle">Timing of Chemotherapy</span></a>
+    <a class="card" href="blood_123_cell_cycle_targets.html" style="--c:#f97316"><span class="num">123</span><span class="ctitle">Cell-Cycle Targets of Anticancer Drugs</span></a>
+    <a class="card" href="blood_124_chemo_toxicities.html" style="--c:#f97316"><span class="num">124</span><span class="ctitle">Signature Chemotherapy Toxicities</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🫀</span>
+    <span class="section-title">Acute Lymphoblastic Leukemia/Lymphoma</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_125_all_chemo_drugs.html" style="--c:#3b82f6"><span class="num">125</span><span class="ctitle">Chemotherapy Agents Used in ALL</span></a>
+    <a class="card" href="blood_126_all_genetics.html" style="--c:#3b82f6"><span class="num">126</span><span class="ctitle">Genetic Abnormalities in ALL</span></a>
+    <a class="card" href="blood_127_all_signs_causes.html" style="--c:#3b82f6"><span class="num">127</span><span class="ctitle">Signs and Symptoms of ALL</span></a>
+    <a class="card" href="blood_128_all_complications.html" style="--c:#3b82f6"><span class="num">128</span><span class="ctitle">Complications of ALL</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩸</span>
+    <span class="section-title">Benign Leukocytosis</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_129_normal_wbc_differential.html" style="--c:#f59e0b"><span class="num">129</span><span class="ctitle">Normal Adult WBC Differential</span></a>
+    <a class="card" href="blood_130_benign_leukocytosis_types.html" style="--c:#f59e0b"><span class="num">130</span><span class="ctitle">Types of Benign Leukocytosis</span></a>
+    <a class="card" href="blood_131_neutrophil_morphology_forms.html" style="--c:#f59e0b"><span class="num">131</span><span class="ctitle">Neutrophil Toxic Changes and Immature Forms</span></a>
+    <a class="card" href="blood_132_benign_lymphocytosis_causes.html" style="--c:#f59e0b"><span class="num">132</span><span class="ctitle">Causes of Benign Lymphocytosis</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧬</span>
+    <span class="section-title">Benign Lymphadenopathies</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_133_lymph_node_location_clues.html" style="--c:#10b981"><span class="num">133</span><span class="ctitle">Lymph Node Location Clues</span></a>
+    <a class="card" href="blood_134_infectious_causes_of_adenopathy.html" style="--c:#10b981"><span class="num">134</span><span class="ctitle">Infectious Causes of Adenopathy</span></a>
+    <a class="card" href="blood_135_node_structure_and_hyperplasia.html" style="--c:#10b981"><span class="num">135</span><span class="ctitle">Node Structure and Reactive Hyperplasia</span></a>
+    <a class="card" href="blood_136_diagnosis_and_management.html" style="--c:#10b981"><span class="num">136</span><span class="ctitle">Diagnosis and Management by Scenario</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🔬</span>
+    <span class="section-title">Y. pestis, F. tularensis, and B. henselae</span>
+    <span class="section-badge">3 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_137_clinical_syndromes.html" style="--c:#8b5cf6"><span class="num">137</span><span class="ctitle">Zoonotic Clinical Syndromes</span></a>
+    <a class="card" href="blood_138_ypestis_virulence.html" style="--c:#8b5cf6"><span class="num">138</span><span class="ctitle">Y. pestis Virulence Factors</span></a>
+    <a class="card" href="blood_139_treatment_approach.html" style="--c:#8b5cf6"><span class="num">139</span><span class="ctitle">Treating the Zoonotic Pathogens</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧪</span>
+    <span class="section-title">Leptospirosis and Lymphatic Filariasis</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_140_lepto_fil_therapy.html" style="--c:#06b6d4"><span class="num">140</span><span class="ctitle">Treatment Agents for Leptospirosis and Filariasis</span></a>
+    <a class="card" href="blood_141_wbancrofti_lifecycle.html" style="--c:#06b6d4"><span class="num">141</span><span class="ctitle">Wuchereria bancrofti Life Cycle Stages</span></a>
+    <a class="card" href="blood_142_filariasis_phases.html" style="--c:#06b6d4"><span class="num">142</span><span class="ctitle">Clinical Phases of Lymphatic Filariasis</span></a>
+    <a class="card" href="blood_143_lepto_fil_diagnosis.html" style="--c:#06b6d4"><span class="num">143</span><span class="ctitle">Diagnosing Leptospirosis and Filariasis</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">💊</span>
+    <span class="section-title">Alkylating Agents</span>
+    <span class="section-badge">3 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_144_agent_class_toxicity.html" style="--c:#ec4899"><span class="num">144</span><span class="ctitle">Alkylating &amp; Platinum Agents</span></a>
+    <a class="card" href="blood_145_toxicity_management.html" style="--c:#ec4899"><span class="num">145</span><span class="ctitle">Managing Alkylating-Agent Toxicity</span></a>
+    <a class="card" href="blood_146_mechanism_and_features.html" style="--c:#ec4899"><span class="num">146</span><span class="ctitle">Mechanism &amp; Distinctive Features</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩺</span>
+    <span class="section-title">Antimetabolite Agents</span>
+    <span class="section-badge">3 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_147_drug_profiles.html" style="--c:#84cc16"><span class="num">147</span><span class="ctitle">Antimetabolite Drug Profiles</span></a>
+    <a class="card" href="blood_148_one_carbon_metabolism.html" style="--c:#84cc16"><span class="num">148</span><span class="ctitle">One-Carbon Metabolism and Thymine Synthesis</span></a>
+    <a class="card" href="blood_149_clinical_uses.html" style="--c:#84cc16"><span class="num">149</span><span class="ctitle">Clinical Uses and Special Roles</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">⚗️</span>
+    <span class="section-title">Topoisomerase Inhibitors, Microtubule Inhibitors, and Antitumor Antibiotics</span>
+    <span class="section-badge">3 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_150_drug_class_overview.html" style="--c:#f97316"><span class="num">150</span><span class="ctitle">Chemotherapy Drug Classes</span></a>
+    <a class="card" href="blood_151_toxicity_and_management.html" style="--c:#f97316"><span class="num">151</span><span class="ctitle">Signature Toxicities and Their Management</span></a>
+    <a class="card" href="blood_152_molecular_targets.html" style="--c:#f97316"><span class="num">152</span><span class="ctitle">Molecular Targets of Cancer Drugs</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🫀</span>
+    <span class="section-title">B-Cell Non-Hodgkin Lymphomas (Part 1 of 2)</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_153_four_low_grade_nhls.html" style="--c:#3b82f6"><span class="num">153</span><span class="ctitle">Four Low-Grade B-Cell NHLs</span></a>
+    <a class="card" href="blood_154_rcvp_chemo_agents.html" style="--c:#3b82f6"><span class="num">154</span><span class="ctitle">R-CVP Chemotherapy Agents</span></a>
+    <a class="card" href="blood_155_signature_pathology_findings.html" style="--c:#3b82f6"><span class="num">155</span><span class="ctitle">Signature Pathology Findings</span></a>
+    <a class="card" href="blood_156_nhl_staging.html" style="--c:#3b82f6"><span class="num">156</span><span class="ctitle">Non-Hodgkin Lymphoma Staging</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩸</span>
+    <span class="section-title">B-Cell Non-Hodgkin Lymphomas (Part 2)</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_157_nhl_presentations.html" style="--c:#f59e0b"><span class="num">157</span><span class="ctitle">Clinical Presentations Across B-Cell NHL</span></a>
+    <a class="card" href="blood_158_genes_proteins.html" style="--c:#f59e0b"><span class="num">158</span><span class="ctitle">Key Genes and Proteins in B-Cell NHL</span></a>
+    <a class="card" href="blood_159_chemo_agents.html" style="--c:#f59e0b"><span class="num">159</span><span class="ctitle">Chemotherapy Agents for High-Grade B-Cell NHL</span></a>
+    <a class="card" href="blood_160_treatment_regimens.html" style="--c:#f59e0b"><span class="num">160</span><span class="ctitle">Treatment Regimens for B-Cell NHL</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧬</span>
+    <span class="section-title">T-cell Non-Hodgkin Lymphomas</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_161_mf_cellular_hallmarks.html" style="--c:#10b981"><span class="num">161</span><span class="ctitle">Cellular and Histologic Hallmarks of Mycosis Fungoides</span></a>
+    <a class="card" href="blood_162_tcell_lymphoma_subtypes.html" style="--c:#10b981"><span class="num">162</span><span class="ctitle">Comparing the T-Cell Lymphomas</span></a>
+    <a class="card" href="blood_163_mf_skin_stages.html" style="--c:#10b981"><span class="num">163</span><span class="ctitle">Skin Findings Across the Stages of Mycosis Fungoides</span></a>
+    <a class="card" href="blood_164_tcell_lymphoma_treatments.html" style="--c:#10b981"><span class="num">164</span><span class="ctitle">Treatments for T-Cell Lymphomas</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🔬</span>
+    <span class="section-title">Hodgkin Lymphoma</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_165_hl_histologic_subtypes.html" style="--c:#8b5cf6"><span class="num">165</span><span class="ctitle">Histologic Subtypes of Hodgkin Lymphoma</span></a>
+    <a class="card" href="blood_166_hl_abvd_chemotherapy.html" style="--c:#8b5cf6"><span class="num">166</span><span class="ctitle">ABVD Chemotherapy Agents</span></a>
+    <a class="card" href="blood_167_hl_staging.html" style="--c:#8b5cf6"><span class="num">167</span><span class="ctitle">Staging of Hodgkin Lymphoma</span></a>
+    <a class="card" href="blood_168_hl_diagnostic_workup.html" style="--c:#8b5cf6"><span class="num">168</span><span class="ctitle">Diagnostic Workup and Staging Tests</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧪</span>
+    <span class="section-title">Multiple Myeloma and Other Plasma Cell Disorders</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_169_crab_complications.html" style="--c:#06b6d4"><span class="num">169</span><span class="ctitle">CRAB Complications of Multiple Myeloma</span></a>
+    <a class="card" href="blood_170_diagnostic_tests.html" style="--c:#06b6d4"><span class="num">170</span><span class="ctitle">Diagnostic Tests for Multiple Myeloma</span></a>
+    <a class="card" href="blood_171_chemotherapy_agents.html" style="--c:#06b6d4"><span class="num">171</span><span class="ctitle">Chemotherapy Agents for Multiple Myeloma</span></a>
+    <a class="card" href="blood_172_plasma_cell_disorders.html" style="--c:#06b6d4"><span class="num">172</span><span class="ctitle">Plasma Cell Disorders Compared</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">💊</span>
+    <span class="section-title">Targeted Inhibitors Used in Cancer Therapy</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_173_targeted_agent_mechanisms.html" style="--c:#ec4899"><span class="num">173</span><span class="ctitle">Mechanisms of Targeted Anticancer Agents</span></a>
+    <a class="card" href="blood_174_targeted_therapy_adverse_effects.html" style="--c:#ec4899"><span class="num">174</span><span class="ctitle">Adverse Effects of Targeted Therapies</span></a>
+    <a class="card" href="blood_175_monoclonal_antibody_nomenclature.html" style="--c:#ec4899"><span class="num">175</span><span class="ctitle">Monoclonal Antibody Nomenclature</span></a>
+    <a class="card" href="blood_176_rtk_signaling_pathway.html" style="--c:#ec4899"><span class="num">176</span><span class="ctitle">Receptor Tyrosine Kinase Signaling</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩺</span>
+    <span class="section-title">Chronic Myeloid Leukemia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_177_cml_diagnostic_tests.html" style="--c:#84cc16"><span class="num">177</span><span class="ctitle">Diagnosing CML</span></a>
+    <a class="card" href="blood_178_cml_treatments.html" style="--c:#84cc16"><span class="num">178</span><span class="ctitle">Treating CML</span></a>
+    <a class="card" href="blood_179_cml_phases.html" style="--c:#84cc16"><span class="num">179</span><span class="ctitle">Chronic Phase vs Blast Crisis</span></a>
+    <a class="card" href="blood_180_cml_complications.html" style="--c:#84cc16"><span class="num">180</span><span class="ctitle">Complications of CML</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">⚗️</span>
+    <span class="section-title">Polycythemia Vera</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_181_pv_signs_symptoms.html" style="--c:#f97316"><span class="num">181</span><span class="ctitle">Signs and Symptoms of Polycythemia Vera</span></a>
+    <a class="card" href="blood_182_pv_labs_pathophys.html" style="--c:#f97316"><span class="num">182</span><span class="ctitle">Laboratory and Pathophysiologic Findings in PV</span></a>
+    <a class="card" href="blood_183_secondary_polycythemia_causes.html" style="--c:#f97316"><span class="num">183</span><span class="ctitle">Causes of Secondary Polycythemia</span></a>
+    <a class="card" href="blood_184_pv_treatments.html" style="--c:#f97316"><span class="num">184</span><span class="ctitle">Treatments for Polycythemia Vera</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🫀</span>
+    <span class="section-title">Essential Thrombocythemia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_185_et_presentation.html" style="--c:#3b82f6"><span class="num">185</span><span class="ctitle">How Essential Thrombocythemia Presents</span></a>
+    <a class="card" href="blood_186_et_genetics.html" style="--c:#3b82f6"><span class="num">186</span><span class="ctitle">Genetic Mutations in Essential Thrombocythemia</span></a>
+    <a class="card" href="blood_187_et_diagnosis.html" style="--c:#3b82f6"><span class="num">187</span><span class="ctitle">Diagnostic Findings in Essential Thrombocythemia</span></a>
+    <a class="card" href="blood_188_et_treatment.html" style="--c:#3b82f6"><span class="num">188</span><span class="ctitle">Managing Essential Thrombocythemia</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩸</span>
+    <span class="section-title">Primary Myelofibrosis</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_189_pmf_genetics.html" style="--c:#f59e0b"><span class="num">189</span><span class="ctitle">Genetic Mutations in Primary Myelofibrosis</span></a>
+    <a class="card" href="blood_190_pmf_diagnosis.html" style="--c:#f59e0b"><span class="num">190</span><span class="ctitle">Diagnosing Primary Myelofibrosis</span></a>
+    <a class="card" href="blood_191_pmf_treatment.html" style="--c:#f59e0b"><span class="num">191</span><span class="ctitle">Treating Primary Myelofibrosis</span></a>
+    <a class="card" href="blood_192_pmf_clinical_features.html" style="--c:#f59e0b"><span class="num">192</span><span class="ctitle">Clinical Consequences of Marrow Fibrosis</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧬</span>
+    <span class="section-title">Myelodysplastic Neoplasms</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_193_mds_dysplasia.html" style="--c:#10b981"><span class="num">193</span><span class="ctitle">Dysplastic Cell Changes in MDS</span></a>
+    <a class="card" href="blood_194_mds_medications.html" style="--c:#10b981"><span class="num">194</span><span class="ctitle">Medications Used in MDS</span></a>
+    <a class="card" href="blood_195_mds_workup.html" style="--c:#10b981"><span class="num">195</span><span class="ctitle">Diagnostic Workup of MDS</span></a>
+    <a class="card" href="blood_196_mds_genetics_risk.html" style="--c:#10b981"><span class="num">196</span><span class="ctitle">Genetics, Risk, and Prognosis in MDS</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🔬</span>
+    <span class="section-title">Acute Myeloid Leukemia</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_197_aml_complications.html" style="--c:#8b5cf6"><span class="num">197</span><span class="ctitle">Complications of Acute Myeloid Leukemia</span></a>
+    <a class="card" href="blood_198_aml_genetics.html" style="--c:#8b5cf6"><span class="num">198</span><span class="ctitle">Genetic Alterations in AML</span></a>
+    <a class="card" href="blood_199_aml_treatments.html" style="--c:#8b5cf6"><span class="num">199</span><span class="ctitle">Medications and Therapies in AML</span></a>
+    <a class="card" href="blood_200_aml_diagnosis.html" style="--c:#8b5cf6"><span class="num">200</span><span class="ctitle">Diagnostic Workup of AML</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧪</span>
+    <span class="section-title">Hematopoietic Stem Cell Transplantation</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_201_hsc_sources.html" style="--c:#06b6d4"><span class="num">201</span><span class="ctitle">Sources &amp; Collection of Hematopoietic Stem Cells</span></a>
+    <a class="card" href="blood_202_transplant_timeline.html" style="--c:#06b6d4"><span class="num">202</span><span class="ctitle">The Transplant Process, Step by Step</span></a>
+    <a class="card" href="blood_203_disease_transplant_type.html" style="--c:#06b6d4"><span class="num">203</span><span class="ctitle">Which Transplant for Which Disease?</span></a>
+    <a class="card" href="blood_204_post_hsct_complications.html" style="--c:#06b6d4"><span class="num">204</span><span class="ctitle">Complications After Transplant</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">💊</span>
+    <span class="section-title">Structure and Function of the Spleen</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_205_spleen_gross_structure.html" style="--c:#ec4899"><span class="num">205</span><span class="ctitle">Gross Structure of the Spleen</span></a>
+    <a class="card" href="blood_206_spleen_vessels_lymphatics.html" style="--c:#ec4899"><span class="num">206</span><span class="ctitle">Blood Supply, Lymphatics, and Innervation</span></a>
+    <a class="card" href="blood_207_red_pulp_filtration.html" style="--c:#ec4899"><span class="num">207</span><span class="ctitle">Red Pulp: Filtering Red Blood Cells</span></a>
+    <a class="card" href="blood_208_white_pulp_immune_zones.html" style="--c:#ec4899"><span class="num">208</span><span class="ctitle">White Pulp: Immune Zones</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩺</span>
+    <span class="section-title">Disorders of the Spleen</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_209_splenomegaly_mechanisms.html" style="--c:#84cc16"><span class="num">209</span><span class="ctitle">Mechanisms of Splenomegaly</span></a>
+    <a class="card" href="blood_210_splenic_disorders.html" style="--c:#84cc16"><span class="num">210</span><span class="ctitle">Disorders of the Spleen at a Glance</span></a>
+    <a class="card" href="blood_211_diagnostic_findings.html" style="--c:#84cc16"><span class="num">211</span><span class="ctitle">Diagnostic Findings in Splenic Disease</span></a>
+    <a class="card" href="blood_212_asplenia_types.html" style="--c:#84cc16"><span class="num">212</span><span class="ctitle">Types of Asplenia and Hyposplenia</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">⚗️</span>
+    <span class="section-title">Structure, Function, and Disorders of the Thymus</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_213_thymic_microanatomy.html" style="--c:#f97316"><span class="num">213</span><span class="ctitle">Thymic Microanatomy</span></a>
+    <a class="card" href="blood_214_t_cell_maturation.html" style="--c:#f97316"><span class="num">214</span><span class="ctitle">T-Cell Maturation and Selection</span></a>
+    <a class="card" href="blood_215_thymic_disorders.html" style="--c:#f97316"><span class="num">215</span><span class="ctitle">Disorders of the Thymus</span></a>
+    <a class="card" href="blood_216_thymic_cells_barrier.html" style="--c:#f97316"><span class="num">216</span><span class="ctitle">Cells and the Blood-Thymus Barrier</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🫀</span>
+    <span class="section-title">Supportive Therapy for Patients on Chemotherapy - Antiemetics</span>
+    <span class="section-badge">3 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_217_antiemetic_classes.html" style="--c:#3b82f6"><span class="num">217</span><span class="ctitle">Antiemetic Drug Classes</span></a>
+    <a class="card" href="blood_218_vomiting_pathway.html" style="--c:#3b82f6"><span class="num">218</span><span class="ctitle">Anatomy of the Vomiting Pathway</span></a>
+    <a class="card" href="blood_219_clinical_pearls.html" style="--c:#3b82f6"><span class="num">219</span><span class="ctitle">Cautions and Clinical Pearls</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🩸</span>
+    <span class="section-title">Plasmodium spp., Babesia spp., and Brucella spp.</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_220_plasmodium_life_cycle_stages.html" style="--c:#f59e0b"><span class="num">220</span><span class="ctitle">Plasmodium Life Cycle Stages</span></a>
+    <a class="card" href="blood_221_genetic_protection_malaria.html" style="--c:#f59e0b"><span class="num">221</span><span class="ctitle">Genetic Protection Against Malaria</span></a>
+    <a class="card" href="blood_222_brucella_immune_evasion.html" style="--c:#f59e0b"><span class="num">222</span><span class="ctitle">Brucella Survival and Immune Evasion</span></a>
+    <a class="card" href="blood_223_babesiosis_hosts_transmission.html" style="--c:#f59e0b"><span class="num">223</span><span class="ctitle">Babesiosis: Hosts and Transmission</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧬</span>
+    <span class="section-title">Drugs to Treat Plasmodium spp., Babesia spp., and Brucella spp.</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_224_antimalarial_mechanisms.html" style="--c:#10b981"><span class="num">224</span><span class="ctitle">Antimalarial Drugs: Mechanism, Toxicity, and Caution</span></a>
+    <a class="card" href="blood_225_prophylaxis_dosing.html" style="--c:#10b981"><span class="num">225</span><span class="ctitle">Malaria Prophylaxis Dosing Schedules</span></a>
+    <a class="card" href="blood_226_treatment_regimens.html" style="--c:#10b981"><span class="num">226</span><span class="ctitle">Treating Malaria, Babesiosis, and Brucellosis</span></a>
+    <a class="card" href="blood_227_antibiotics_babesia_brucella.html" style="--c:#10b981"><span class="num">227</span><span class="ctitle">Antibiotics Used for Babesiosis and Brucellosis</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🔬</span>
+    <span class="section-title">Hemorrhagic Viruses</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_228_vhf_taxonomy.html" style="--c:#8b5cf6"><span class="num">228</span><span class="ctitle">Taxonomy of Viral Hemorrhagic Fever Agents</span></a>
+    <a class="card" href="blood_229_hf_syndromes.html" style="--c:#8b5cf6"><span class="num">229</span><span class="ctitle">Comparing the Hemorrhagic Fever Syndromes</span></a>
+    <a class="card" href="blood_230_diagnosis_management.html" style="--c:#8b5cf6"><span class="num">230</span><span class="ctitle">Diagnosis and Management of Hemorrhagic Viruses</span></a>
+    <a class="card" href="blood_231_prevention_countermeasures.html" style="--c:#8b5cf6"><span class="num">231</span><span class="ctitle">Prevention and Countermeasures</span></a>
+  </div>
+</section>
+
+<section class="section" data-section>
+  <div class="section-head">
+    <span class="section-icon">🧪</span>
+    <span class="section-title">Arboviruses</span>
+    <span class="section-badge">4 games</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="blood_232_identify_the_arbovirus.html" style="--c:#06b6d4"><span class="num">232</span><span class="ctitle">Identify the Arbovirus</span></a>
+    <a class="card" href="blood_233_clinical_hallmarks.html" style="--c:#06b6d4"><span class="num">233</span><span class="ctitle">Clinical Hallmarks and Vaccines</span></a>
+    <a class="card" href="blood_234_distinguishing_features.html" style="--c:#06b6d4"><span class="num">234</span><span class="ctitle">Telling the Look-Alikes Apart</span></a>
+    <a class="card" href="blood_235_epidemiology_and_prevention.html" style="--c:#06b6d4"><span class="num">235</span><span class="ctitle">Epidemiology and Prevention</span></a>
+  </div>
+</section>
+
+</main>
+
+<script>
+document.getElementById('search').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  let anyVisible = false;
+  document.querySelectorAll('.section').forEach(sec => {
+    let secVisible = false;
+    sec.querySelectorAll('.card').forEach(c => {
+      const match = c.textContent.toLowerCase().includes(q);
+      c.style.display = match ? '' : 'none';
+      if (match) secVisible = true;
+    });
+    sec.style.display = secVisible ? '' : 'none';
+    if (secVisible) anyVisible = true;
+  });
+  document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+});
+</script>
+</body>
+</html>
